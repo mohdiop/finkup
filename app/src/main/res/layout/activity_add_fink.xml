@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/grey"
+    tools:context=".activities.AddFink">
+
+    <ImageButton
+        android:id="@+id/backToMainAdd"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/no_background"
+        android:contentDescription="@string/back_to_main_activity"
+        android:src="@drawable/arrow_left_s_line"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/first" />
+
+    <ImageView
+        android:id="@+id/finkLogo"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginTop="30dp"
+        android:contentDescription="@string/fink_logo"
+        android:src="@drawable/lightbulb_fill"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/backToMainAdd"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/first" />
+
+    <EditText
+        android:id="@+id/titleAdd"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="50dp"
+        android:autofillHints="none"
+        android:background="@drawable/edit_text_background"
+        android:hint="@string/title"
+        android:inputType="textCapSentences"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/finkLogo" />
+
+    <EditText
+        android:id="@+id/contentAdd"
+        android:layout_width="300dp"
+        android:layout_height="400dp"
+        android:layout_marginTop="10dp"
+        android:autofillHints="none"
+        android:background="@drawable/edit_text_background"
+        android:gravity="top"
+        android:hint="@string/content"
+        android:inputType="textMultiLine"
+        android:padding="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/titleAdd" />
+
+    <Button
+        android:id="@+id/addFink"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button_background"
+        android:text="@string/add"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/contentAdd"
+        tools:ignore="TextContrastCheck" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
