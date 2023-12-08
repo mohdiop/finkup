@@ -5,10 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/grey"
-    tools:context=".activities.AddFink">
+    tools:context=".activities.ViewFink">
 
     <ImageButton
-        android:id="@+id/backToMainAdd"
+        android:id="@+id/backToMainView"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginTop="10dp"
@@ -28,19 +28,19 @@
         android:contentDescription="@string/fink_logo"
         android:src="@drawable/lightbulb_fill"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/backToMainAdd"
+        app:layout_constraintStart_toEndOf="@id/backToMainView"
         app:layout_constraintTop_toTopOf="parent"
         app:tint="@color/first" />
 
     <EditText
-        android:id="@+id/titleAdd"
+        android:id="@+id/titleView"
         android:layout_width="300dp"
         android:layout_height="50dp"
         android:layout_marginTop="50dp"
         android:autofillHints="none"
         android:background="@drawable/edit_text_background"
         android:hint="@string/title"
-        android:inputType="textCapSentences"
+        android:inputType="none"
         android:paddingStart="10dp"
         android:paddingEnd="10dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -48,7 +48,7 @@
         app:layout_constraintTop_toBottomOf="@id/finkLogo" />
 
     <EditText
-        android:id="@+id/contentAdd"
+        android:id="@+id/contentView"
         android:layout_width="300dp"
         android:layout_height="400dp"
         android:layout_marginTop="10dp"
@@ -56,23 +56,24 @@
         android:background="@drawable/edit_text_background"
         android:gravity="top"
         android:hint="@string/content"
-        android:inputType="textMultiLine"
+        android:inputType="none"
         android:padding="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/titleAdd" />
+        app:layout_constraintTop_toBottomOf="@id/titleView" />
 
     <Button
-        android:id="@+id/addFink"
+        android:id="@+id/updateFink"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/button_background"
-        android:text="@string/add"
+        android:text="@string/update"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/contentAdd"
+        app:layout_constraintTop_toBottomOf="@id/contentView"
         tools:ignore="TextContrastCheck" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

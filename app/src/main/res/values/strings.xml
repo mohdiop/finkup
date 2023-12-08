@@ -7,4 +7,6 @@
     <string name="content">Content</string>
     <string name="add">Add</string>
     <string name="date">Date</string>
+    <string name="update">Update</string>
+    <string name="done">Done</string>
 </resources>
