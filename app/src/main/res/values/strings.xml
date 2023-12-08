@@ -6,4 +6,5 @@
     <string name="title">Title</string>
     <string name="content">Content</string>
     <string name="add">Add</string>
+    <string name="date">Date</string>
 </resources>

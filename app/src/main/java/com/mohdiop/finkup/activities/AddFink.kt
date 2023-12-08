@@ -54,8 +54,10 @@ class AddFink : AppCompatActivity() {
                 CoroutineScope(Dispatchers.Main).launch {
                     finkDao.insertFink(finkToAdd)
                 }
-            }else{
-                Toast.makeText(this,"Please field in all !", Toast.LENGTH_LONG).show()
+                this.finish()
+                Toast.makeText(this, "Add Successfully !", Toast.LENGTH_LONG).show()
+            } else {
+                Toast.makeText(this, "Please field in all !", Toast.LENGTH_LONG).show()
             }
         }
     }

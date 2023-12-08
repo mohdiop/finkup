@@ -8,7 +8,7 @@ import androidx.room.Update
 
 @Dao
 interface FinkDao {
-    @Query("SELECT * FROM fink")
+    @Query("SELECT * FROM fink ORDER BY date DESC")
     suspend fun getAllFinks(): List<Fink>
 
     @Insert
