@@ -1,79 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/grey"
+    android:fillViewport="true"
     tools:context=".activities.ViewFink">
 
-    <ImageButton
-        android:id="@+id/backToMainView"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/no_background"
-        android:contentDescription="@string/back_to_main_activity"
-        android:src="@drawable/arrow_left_s_line"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/first" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <ImageView
-        android:id="@+id/finkLogo"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="50dp"
-        android:contentDescription="@string/fink_logo"
-        android:src="@drawable/lightbulb_fill"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/backToMainView"
-        app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/first" />
+        <ImageButton
+            android:id="@+id/backToMainView"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/no_background"
+            android:contentDescription="@string/back_to_main_activity"
+            android:src="@drawable/arrow_left_s_line"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/first" />
 
-    <EditText
-        android:id="@+id/titleView"
-        android:layout_width="300dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="50dp"
-        android:autofillHints="none"
-        android:background="@drawable/edit_text_background"
-        android:hint="@string/title"
-        android:inputType="none"
-        android:paddingStart="10dp"
-        android:paddingEnd="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/finkLogo" />
+        <ImageView
+            android:id="@+id/finkLogo"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="50dp"
+            android:contentDescription="@string/fink_logo"
+            android:src="@drawable/lightbulb_fill"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/backToMainView"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/first" />
 
-    <EditText
-        android:id="@+id/contentView"
-        android:layout_width="300dp"
-        android:layout_height="400dp"
-        android:layout_marginTop="10dp"
-        android:autofillHints="none"
-        android:background="@drawable/edit_text_background"
-        android:gravity="top"
-        android:hint="@string/content"
-        android:inputType="none"
-        android:padding="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/titleView" />
+        <EditText
+            android:id="@+id/titleView"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:autofillHints="none"
+            android:background="@drawable/edit_text_background"
+            android:enabled="false"
+            android:hint="@string/title"
+            android:inputType="textMultiLine"
+            android:padding="14dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/finkLogo" />
 
-    <Button
-        android:id="@+id/updateFink"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/button_background"
-        android:text="@string/update"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/contentView"
-        tools:ignore="TextContrastCheck" />
+        <EditText
+            android:id="@+id/contentView"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:autofillHints="none"
+            android:background="@drawable/edit_text_background"
+            android:enabled="false"
+            android:gravity="top"
+            android:hint="@string/content"
+            android:inputType="textMultiLine|textNoSuggestions"
+            android:overScrollMode="ifContentScrolls"
+            android:padding="14dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/titleView" />
 
+        <Button
+            android:id="@+id/updateFink"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/button_background"
+            android:text="@string/update"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/contentView"
+            tools:ignore="TextContrastCheck" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

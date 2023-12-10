@@ -50,6 +50,9 @@ class FinkAdapter(private var context: Context, private var fink: List<Fink>,
         holder.container.setOnClickListener{
             finkListener.onFinkClickListener(fink[position])
         }
+        holder.container.setOnLongClickListener {
+            finkListener.onFinkLongClickListener(fink[position])
+        }
     }
 
 }

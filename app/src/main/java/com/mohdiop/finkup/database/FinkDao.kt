@@ -19,4 +19,10 @@ interface FinkDao {
 
     @Update
     suspend fun updateFink(oldFink: Fink)
+
+    @Query("SELECT * FROM fink WHERE content LIKE '%'||:key||'%' OR title LIKE '%'||:key||'%'")
+    suspend fun searchFink(key: String): List<Fink>
+
+    @Query("DELETE FROM fink")
+    suspend fun truncate()
 }

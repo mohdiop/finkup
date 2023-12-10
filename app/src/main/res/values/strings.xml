@@ -9,4 +9,8 @@
     <string name="date">Date</string>
     <string name="update">Update</string>
     <string name="done">Done</string>
+    <string name="search_a_fink">Search a Fink</string>
+    <string name="option">Option</string>
+    <string name="delete">Delete</string>
+    <string name="refresh">Refresh</string>
 </resources>

@@ -10,6 +10,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:fillViewport="true"
         android:overScrollMode="ifContentScrolls">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -20,25 +21,78 @@
                 android:id="@+id/finkText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="40dp"
+                android:fontFamily="monospace"
                 android:text="@string/app_name"
+                android:textColor="@color/first"
                 android:textSize="35sp"
                 android:textStyle="bold"
-                android:textColor="@color/first"
-                android:fontFamily="monospace"
-                android:layout_marginTop="40dp"
-                android:layout_marginStart="40dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageButton
+                android:id="@+id/refresh"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="40dp"
+                android:background="@drawable/no_background"
+                android:src="@drawable/loop_right_line"
+                app:layout_constraintEnd_toEndOf="@id/delete"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/first"
+                android:contentDescription="@string/refresh" />
+
+            <ImageButton
+                android:id="@+id/delete"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/no_background"
+                android:src="@drawable/delete_bin_7_fill"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/first"
+                android:contentDescription="@string/delete" />
+
+            <androidx.appcompat.widget.SearchView
+                android:id="@+id/finkSearch"
+                style="@style/Widget.AppCompat.Light.SearchView"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/search_background"
+                app:iconifiedByDefault="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/finkText"
+                app:queryHint="@string/search_a_fink" />
+
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/finkRecycleView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="20dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/finkText"
-                app:layout_constraintBottom_toBottomOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/finkSearch" />
+
+            <TextView
+                android:id="@+id/totalFinkNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:layout_marginBottom="50dp"
+                android:text=""
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/finkRecycleView" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
@@ -46,11 +100,11 @@
         android:id="@+id/add"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:src="@drawable/pencil_line"
-        android:background="@drawable/image_button_background"
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="20dp"
+        android:background="@drawable/image_button_background"
         android:contentDescription="@string/add_new_thought"
+        android:src="@drawable/pencil_line"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:tint="@color/white" />
