@@ -8,7 +8,7 @@ import androidx.room.Update
 
 @Dao
 interface FinkDao {
-    @Query("SELECT * FROM fink ORDER BY date DESC")
+    @Query("SELECT * FROM fink ORDER BY finkDate DESC")
     suspend fun getAllFinks(): List<Fink>
 
     @Insert
@@ -20,7 +20,7 @@ interface FinkDao {
     @Update
     suspend fun updateFink(oldFink: Fink)
 
-    @Query("SELECT * FROM fink WHERE content LIKE '%'||:key||'%' OR title LIKE '%'||:key||'%'")
+    @Query("SELECT * FROM fink WHERE finkContent LIKE '%'||:key||'%' OR finkTitle LIKE '%'||:key||'%'")
     suspend fun searchFink(key: String): List<Fink>
 
     @Query("DELETE FROM fink")

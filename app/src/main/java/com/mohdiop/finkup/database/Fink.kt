@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 @Entity
 data class Fink(
     @PrimaryKey(autoGenerate = true) val finkId: Long = 0,
-    @ColumnInfo("title") val finkTitle: String,
-    @ColumnInfo("content") val finkContent: String,
-    @ColumnInfo("date") val finkDate: Long
+    @ColumnInfo("finkTitle") val finkTitle: String,
+    @ColumnInfo("finkContent") val finkContent: String,
+    @ColumnInfo("finkDate") val finkDate: Long
 )
