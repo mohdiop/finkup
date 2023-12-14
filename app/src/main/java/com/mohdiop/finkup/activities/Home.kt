@@ -16,13 +16,19 @@ import com.mohdiop.finkup.R
 import com.mohdiop.finkup.classes.FinkAdapter
 import com.mohdiop.finkup.classes.FinkListener
 import com.mohdiop.finkup.database.Fink
+import com.mohdiop.finkup.database.FinkApiController
 import com.mohdiop.finkup.database.FinkDao
 import com.mohdiop.finkup.database.FinkDatabase
+import com.mohdiop.finkup.database.FinkRetrofit
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import okhttp3.ResponseBody
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
-class MainActivity : AppCompatActivity(), FinkListener {
+class Home : AppCompatActivity(), FinkListener {
 
     private lateinit var addFink: ImageButton
     private lateinit var finkRecyclerView: RecyclerView
@@ -33,12 +39,22 @@ class MainActivity : AppCompatActivity(), FinkListener {
 
     private lateinit var finkDatabase: FinkDatabase
     private lateinit var finkDao: FinkDao
+    private lateinit var finkRetrofit: FinkApiController
     private lateinit var dividerItemDecoration: DividerItemDecoration
+
+    companion object {
+        var savedInServer: Boolean = false
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         init()
         listeners()
+        loadDataFromServer()
+        CoroutineScope(Dispatchers.Main).launch {
+            loadView(finkDao.getAllFinks())
+        }
     }
 
     private fun init() {
@@ -56,9 +72,7 @@ class MainActivity : AppCompatActivity(), FinkListener {
         totalFinkNumber = findViewById(R.id.totalFinkNumber)
         finkDatabase = FinkDatabase.getInstance(applicationContext)
         finkDao = finkDatabase.finkDao()
-        CoroutineScope(Dispatchers.Main).launch {
-            loadView(finkDao.getAllFinks())
-        }
+        finkRetrofit = FinkRetrofit.getInstance()
     }
 
     private fun listeners() {
@@ -92,12 +106,21 @@ class MainActivity : AppCompatActivity(), FinkListener {
                 .setPositiveButton("YES") { _, _ ->
                     CoroutineScope(Dispatchers.Main).launch {
                         finkDao.truncate()
-                        Toast.makeText(
-                            this@MainActivity,
-                            "All finks are deleted",
-                            Toast.LENGTH_SHORT
-                        ).show()
                         loadView(finkDao.getAllFinks())
+                        CoroutineScope(Dispatchers.IO).launch {
+                            finkRetrofit.deleteAllFinks().enqueue(object : Callback<ResponseBody?> {
+                                override fun onResponse(
+                                    call: Call<ResponseBody?>,
+                                    response: Response<ResponseBody?>
+                                ) {
+                                    makeToast(response.body()!!.string())
+                                }
+
+                                override fun onFailure(call: Call<ResponseBody?>, t: Throwable) {
+                                    makeToast(t.message.toString())
+                                }
+                            })
+                        }
                     }
                 }
                 .setNegativeButton("NO") { dialog, _ ->
@@ -110,13 +133,10 @@ class MainActivity : AppCompatActivity(), FinkListener {
             }
         }
         refresh.setOnClickListener {
-            CoroutineScope(Dispatchers.Main).launch {
-                Toast.makeText(this@MainActivity, "Refreshing ...", Toast.LENGTH_SHORT).show()
-                loadView(finkDao.getAllFinks())
-            }
+            makeToast("Refreshing ...")
+            loadDataFromServer()
         }
     }
-
 
     @SuppressLint("SetTextI18n")
     private fun loadView(finkToView: List<Fink>) {
@@ -126,12 +146,6 @@ class MainActivity : AppCompatActivity(), FinkListener {
         totalFinkNumber.text = "$numberOfFinks finks in total."
     }
 
-    override fun onResume() {
-        super.onResume()
-        CoroutineScope(Dispatchers.Main).launch {
-            loadView(finkDao.getAllFinks())
-        }
-    }
 
     override fun onFinkClickListener(fink: Fink) {
         intent = Intent(applicationContext, ViewFink::class.java)
@@ -156,5 +170,99 @@ class MainActivity : AppCompatActivity(), FinkListener {
             .create()
             .show()
         return true
+    }
+
+    override fun onResume() {
+        super.onResume()
+        CoroutineScope(Dispatchers.Main).launch {
+            loadView(finkDao.getAllFinks())
+        }
+        if (!savedInServer) {
+            saveDataInServer()
+            savedInServer = true
+        }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        if (!savedInServer) {
+            saveDataInServer()
+            savedInServer = true
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        if (!savedInServer) {
+            saveDataInServer()
+            savedInServer = true
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        if (!savedInServer) {
+            saveDataInServer()
+            savedInServer = true
+        }
+    }
+
+    private fun saveDataInServer() {
+        finkRetrofit.deleteAllFinks().enqueue(object : Callback<ResponseBody?> {
+            override fun onResponse(
+                call: Call<ResponseBody?>,
+                response: Response<ResponseBody?>
+            ) {
+                if (response.isSuccessful) {
+                    CoroutineScope(Dispatchers.IO).launch {
+                        finkRetrofit.addAllFinks(finkDao.getAllFinks())
+                            .enqueue(object : Callback<ResponseBody?> {
+                                override fun onResponse(
+                                    call: Call<ResponseBody?>,
+                                    response: Response<ResponseBody?>
+                                ) {
+                                    println(response.body()!!.string())
+                                }
+
+                                override fun onFailure(call: Call<ResponseBody?>, t: Throwable) {
+                                    println(t.message)
+                                }
+                            })
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseBody?>, t: Throwable) {
+                makeToast(t.message.toString())
+            }
+        })
+    }
+
+    private fun loadDataFromServer() {
+        CoroutineScope(Dispatchers.IO).launch {
+            finkRetrofit.getAllFinks().enqueue(object : Callback<List<Fink>?> {
+                override fun onResponse(call: Call<List<Fink>?>, response: Response<List<Fink>?>) {
+                    if (response.isSuccessful) {
+                        CoroutineScope(Dispatchers.Main).launch {
+                            finkDao.truncate()
+                            for (fink in response.body()!!) {
+                                finkDao.insertFink(fink)
+                            }
+                            loadView(finkDao.getAllFinks())
+                        }
+                    } else {
+                        makeToast("Unable to access data from server")
+                    }
+                }
+
+                override fun onFailure(call: Call<List<Fink>?>, t: Throwable) {
+                    makeToast(t.message.toString())
+                }
+            })
+        }
+    }
+
+    fun makeToast(string: String) {
+        Toast.makeText(this, string, Toast.LENGTH_LONG).show()
     }
 }

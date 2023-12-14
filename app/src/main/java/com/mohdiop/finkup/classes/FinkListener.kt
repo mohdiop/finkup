@@ -5,5 +5,5 @@ import com.mohdiop.finkup.database.Fink
 interface FinkListener {
     fun onFinkClickListener(fink: Fink)
 
-    fun onFinkLongClickListener(fink: Fink) : Boolean
+    fun onFinkLongClickListener(fink: Fink): Boolean
 }

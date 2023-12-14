@@ -13,8 +13,10 @@ import com.mohdiop.finkup.database.Fink
 import java.text.SimpleDateFormat
 import java.util.Date
 
-class FinkAdapter(private var context: Context, private var fink: List<Fink>,
-    private var finkListener: FinkListener) :
+class FinkAdapter(
+    private var context: Context, private var fink: List<Fink>,
+    private var finkListener: FinkListener
+) :
     RecyclerView.Adapter<FinkAdapter.FinkViewHolder>() {
 
     class FinkViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -47,7 +49,7 @@ class FinkAdapter(private var context: Context, private var fink: List<Fink>,
         holder.title.text = newFink.finkTitle
         holder.content.text = newFink.finkContent
         holder.date.text = SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(Date(newFink.finkDate))
-        holder.container.setOnClickListener{
+        holder.container.setOnClickListener {
             finkListener.onFinkClickListener(fink[position])
         }
         holder.container.setOnLongClickListener {

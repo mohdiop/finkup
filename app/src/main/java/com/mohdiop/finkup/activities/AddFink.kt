@@ -56,6 +56,7 @@ class AddFink : AppCompatActivity() {
                 }
                 this.finish()
                 Toast.makeText(this, "Add Successfully !", Toast.LENGTH_LONG).show()
+                Home.savedInServer = false
             } else {
                 Toast.makeText(this, "Please field in all !", Toast.LENGTH_LONG).show()
             }

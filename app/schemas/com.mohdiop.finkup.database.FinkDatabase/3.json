@@ -1,0 +1,52 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 3,
+    "identityHash": "1cd0aa8d34ed79bcc6d65aeec93c610d",
+    "entities": [
+      {
+        "tableName": "Fink",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`finkId` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `finkTitle` TEXT NOT NULL, `finkContent` TEXT NOT NULL, `finkDate` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "finkId",
+            "columnName": "finkId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "finkTitle",
+            "columnName": "finkTitle",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "finkContent",
+            "columnName": "finkContent",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "finkDate",
+            "columnName": "finkDate",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "finkId"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '1cd0aa8d34ed79bcc6d65aeec93c610d')"
+    ]
+  }
+}

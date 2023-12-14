@@ -20,7 +20,10 @@ interface FinkDao {
     @Update
     suspend fun updateFink(oldFink: Fink)
 
-    @Query("SELECT * FROM fink WHERE finkContent LIKE '%'||:key||'%' OR finkTitle LIKE '%'||:key||'%'")
+    @Query(
+        "SELECT * FROM fink WHERE finkContent LIKE '%'||:key||'%' OR finkTitle LIKE '%'||:key||'%'" +
+                "ORDER BY finkDate DESC"
+    )
     suspend fun searchFink(key: String): List<Fink>
 
     @Query("DELETE FROM fink")

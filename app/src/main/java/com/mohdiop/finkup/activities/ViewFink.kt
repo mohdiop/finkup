@@ -78,6 +78,7 @@ class ViewFink : AppCompatActivity() {
                     update.text = getString(R.string.update)
                     Toast.makeText(applicationContext, "Update Successfully !", Toast.LENGTH_LONG)
                         .show()
+                    Home.savedInServer = false
                 }
             }
         }
