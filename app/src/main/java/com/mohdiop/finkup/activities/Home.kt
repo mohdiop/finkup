@@ -3,11 +3,13 @@ package com.mohdiop.finkup.activities
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -58,6 +60,12 @@ class Home : AppCompatActivity(), FinkListener {
     }
 
     private fun init() {
+        if (Build.VERSION.SDK_INT >= 29) {
+            window.statusBarColor =
+                ContextCompat.getColor(applicationContext, R.color.first)
+            window.navigationBarColor =
+                ContextCompat.getColor(applicationContext, R.color.white)
+        }
         addFink = findViewById(R.id.add)
         finkRecyclerView = findViewById(R.id.finkRecycleView)
         searchFink = findViewById(R.id.finkSearch)
@@ -179,7 +187,6 @@ class Home : AppCompatActivity(), FinkListener {
         }
         if (!savedInServer) {
             saveDataInServer()
-            savedInServer = true
         }
     }
 
@@ -187,7 +194,6 @@ class Home : AppCompatActivity(), FinkListener {
         super.onStop()
         if (!savedInServer) {
             saveDataInServer()
-            savedInServer = true
         }
     }
 
@@ -195,7 +201,6 @@ class Home : AppCompatActivity(), FinkListener {
         super.onDestroy()
         if (!savedInServer) {
             saveDataInServer()
-            savedInServer = true
         }
     }
 
@@ -203,7 +208,6 @@ class Home : AppCompatActivity(), FinkListener {
         super.onPause()
         if (!savedInServer) {
             saveDataInServer()
-            savedInServer = true
         }
     }
 
@@ -222,6 +226,7 @@ class Home : AppCompatActivity(), FinkListener {
                                     response: Response<ResponseBody?>
                                 ) {
                                     println(response.body()!!.string())
+                                    savedInServer = true
                                 }
 
                                 override fun onFailure(call: Call<ResponseBody?>, t: Throwable) {

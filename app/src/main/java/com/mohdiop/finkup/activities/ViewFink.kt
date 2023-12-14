@@ -1,11 +1,13 @@
 package com.mohdiop.finkup.activities
 
+import android.os.Build
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.mohdiop.finkup.R
 import com.mohdiop.finkup.database.Fink
 import com.mohdiop.finkup.database.FinkDao
@@ -33,6 +35,12 @@ class ViewFink : AppCompatActivity() {
     }
 
     private fun init() {
+        if (Build.VERSION.SDK_INT >= 29) {
+            window.statusBarColor =
+                ContextCompat.getColor(this, R.color.first)
+            window.navigationBarColor =
+                ContextCompat.getColor(this, R.color.grey)
+        }
         back = findViewById(R.id.backToMainView)
         title = findViewById(R.id.titleView)
         content = findViewById(R.id.contentView)
